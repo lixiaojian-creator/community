@@ -39,11 +39,10 @@
                 <a class="nav-link" href="#">下载</a>
             </li>
         </ul>
-        <div>
+        <div th:if="${session.user} eq null">
             <a href="https://github.com/login/oauth/authorize?client_id=6d3188d15191a925e115&redirect_uri=http://localhost:8887/community/oauth/callback&state=1001">登入</a>
-
         </div>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown" th:if="${session.user} ne null">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 我
