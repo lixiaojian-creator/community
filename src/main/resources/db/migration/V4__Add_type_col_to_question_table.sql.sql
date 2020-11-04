@@ -1,0 +1,1 @@
+ALTER TABLE QUESTION ADD type varchar(50) NULL;

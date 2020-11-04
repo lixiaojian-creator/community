@@ -40,8 +40,8 @@ public class GithubProvider {
                 GithubUser githubUser = JSON.parseObject(response.body().string(),GithubUser.class);
                 return githubUser;
             }
-            return null;
         }
+        return null;
     }
 
 }

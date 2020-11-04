@@ -1,3 +1,33 @@
-.dropdown-menu-size{
+.dropdown-menu-style{
     min-width: 111px;
+    position: absolute;
+    top: 30px;
+    left: -32px;
+}
+.problem-h6-style{
+    margin-left: 6px;
+    margin-bottom: 11px;
+    font-size: 17px;
+}
+.container-style{
+    margin-top: 30px;
+    background-color: white;
+    padding-top: 15px;
+}
+body{
+    background-color: #efefef;
+}
+.btn-cus{
+    float: right;
+    margin-bottom: 13px;
+}
+.op-type{
+    display: none;
+}
+.message{
+    height: 38px;
+    padding-left: 10px;
+    padding-top: 7px;
+    float: left;
+    width: 80%;
 }
