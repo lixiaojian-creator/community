@@ -12,4 +12,7 @@ public interface UserMapper {
 
     @Select("select * from user where token=#{token}")
     User findOneByToken(String token);
+
+    @Select("select * from user where id=#{id}")
+    User findOneById(int id);
 }
