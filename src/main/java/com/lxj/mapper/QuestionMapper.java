@@ -22,4 +22,7 @@ public interface QuestionMapper {
 
     @Select("select count(*) from question")
     Integer getCounts();
+
+    @Select("select * from question where creator=#{id} limit #{offset},#{rows}")
+    List<Question> selectPaginationByUser(@Param("id") Integer id, @Param("offset") Integer offset, @Param("rows") Integer rows);
 }

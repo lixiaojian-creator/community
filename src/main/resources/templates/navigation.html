@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#" th:href="@{/}">码匠社区</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="搜索问题" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">发现 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">分享</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">文章</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">活动</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">下载</a>
+                </li>
+            </ul>
+            <div th:if="${session.user} eq null">
+                <a href="https://github.com/login/oauth/authorize?client_id=6d3188d15191a925e115&redirect_uri=http://localhost:8887/community/oauth/callback&state=1001">登入</a>
+            </div>
+            <a th:href="@{/publish}" class="btn btn-primary" th:if="${session.user} ne null">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-plus" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                    <path fill-rule="evenodd"
+                          d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                </svg>
+                发起
+            </a>
+            <div class="nav-item dropdown" th:if="${session.user} ne null">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    我
+                </a>
+                <div class="dropdown-menu dropdown-menu-style" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" th:href="@{/profile/question}">我的问题</a>
+                    <a class="dropdown-item" href="#">消息中心</a>
+                    <a class="dropdown-item" href="#">个人资料</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出登入</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</body>
+
+</html>

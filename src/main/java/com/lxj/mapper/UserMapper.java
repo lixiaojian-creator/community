@@ -15,4 +15,7 @@ public interface UserMapper {
 
     @Select("select * from user where id=#{id}")
     User findOneById(int id);
+
+    @Select("select * from user where account_id=#{accountId}")
+    User findOneByAccountId(long accountId);
 }

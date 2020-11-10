@@ -53,16 +53,24 @@ public class AuthorizeController {
             GithubUser githubUser = githubProvider.getUser(accessToken);
             if(githubUser != null){
                 //登入成功
-                request.getSession().setAttribute("user",githubUser);
-                User user = new User();
-                user.setAccountId(String.valueOf(githubUser.getId()));
-                user.setName(githubUser.getName());
-                String token = UUID.randomUUID().toString();
-                user.setToken(token);
-                user.setGmtCreate(System.currentTimeMillis());
-                user.setGmtModified(user.getGmtCreate());
-                user.setAvatarUri(githubUser.getAvatar_url());
-                userMapper.insert(user);
+                //先检查该用户是否存在于数据库中，如果存在，直接取出来用户信息，返回页面，如果不存在，则写入数据库，再返回页面
+                User user = null;
+                String token = null;
+                user = userMapper.findOneByAccountId(githubUser.getId());
+                if(user != null){
+                    token = user.getToken();
+                }else {//写入数据库
+                    user = new User();
+                    user.setAccountId(String.valueOf(githubUser.getId()));
+                    user.setName(githubUser.getName());
+                    token = UUID.randomUUID().toString();
+                    user.setToken(token);
+                    user.setGmtCreate(System.currentTimeMillis());
+                    user.setGmtModified(user.getGmtCreate());
+                    user.setAvatarUri(githubUser.getAvatar_url());
+                    userMapper.insert(user);
+                }
+                request.getSession().setAttribute("user",user);
                 Cookie cookieToken = new Cookie("token", token);
                 cookieToken.setPath("/community/");
                 response.addCookie(cookieToken);

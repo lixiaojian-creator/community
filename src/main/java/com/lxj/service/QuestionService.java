@@ -62,4 +62,29 @@ public class QuestionService {
         return paginationDTO;
 
     }
+
+    public PaginationDTO getPaginationDTO(Integer id, Integer currentPage, Integer pageSize) {
+        Integer offset = (currentPage - 1) * pageSize;
+        Integer rows = pageSize;
+        List<QuestionDTO> questionDTOList = null;
+        PaginationDTO paginationDTO = new PaginationDTO();
+        List<Question> questionList = questionMapper.selectPaginationByUser(id,offset, rows);
+        if (questionList != null) {
+            questionDTOList = new ArrayList<QuestionDTO>();
+            for (Question question : questionList) {
+                User user = userMapper.findOneById(question.getCreator());
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
+            }
+        }
+        paginationDTO.setQuestionDTOS(questionDTOList);
+        paginationDTO.setCurrentPage(currentPage);
+        Integer counts = questionMapper.getCounts();
+        paginationDTO.setTotalPage((int) Math.ceil(counts *1.0/ pageSize));
+
+        paginationDTO.setPagination(currentPage,paginationDTO.getTotalPage());
+        return paginationDTO;
+    }
 }
